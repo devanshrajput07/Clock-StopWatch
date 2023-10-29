@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+    <style>
+        #box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            color: #d7dfe4;
+            text-align: center;
+        }
+
+        .digit {
+            font-size: 150px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .txt {
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #btn-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn {
+            width: 100px;
+            margin: 0 15px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Watch</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link " aria-current="page" href="Clock.html">Clock</a>
+                    <a class="nav-link active" href="Stopwatch.html">Stop Watch</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="box">
+        <div id="container">
+            <div id="time">
+                <span class="digit" id="hr">00</span>
+                <span class="txt">Hr</span>
+                <span class="digit" id="min">00</span>
+                <span class="txt">Min</span>
+                <span class="digit" id="sec">00</span>
+                <span class="txt">Sec</span>
+                <span class="digit" id="count">00</span>
+            </div>
+            <div id="btn-container">
+                <button class="btn" style="background-color: #1abc9c;" onclick="start()">Start</button>
+                <button class="btn" style="background-color: #3498db;" onclick="stop()">Stop</button>
+                <button class="btn" style="background-color: #e74c3c;" onclick="reset()">Reset</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script>
+        var hr = 0;
+        var min = 0;
+        var sec = 0;
+        var count = 0;
+
+        var timer;
+
+        function start() {
+            if (!timer) {
+                timer = setInterval(stopwatch, 10);
+            }
+        }
+
+        function stop() {
+            clearInterval(timer);
+            timer = false;
+        }
+
+        function reset() {
+            clearInterval(timer);
+            timer = false;
+            hr = 0;
+            min = 0;
+            sec = 0;
+            count = 0;
+            document.getElementById('hr').textContent = '00';
+            document.getElementById('min').textContent = '00';
+            document.getElementById('sec').textContent = '00';
+            document.getElementById('count').textContent = '00';
+        }
+
+        function stopwatch() {
+            count++;
+            if (count == 100) {
+                sec++;
+                count = 0;
+            }
+            if (sec == 60) {
+                min++;
+                sec = 0;
+            }
+            if (min == 60) {
+                hr++;
+                min = 0;
+                sec = 0;
+            }
+
+            var hrStr = ("0" + hr).slice(-2);
+            var minStr = ("0" + min).slice(-2);
+            var secStr = ("0" + sec).slice(-2);
+            var countStr = ("0" + count).slice(-2);
+
+            document.getElementById('hr').textContent = hrStr;
+            document.getElementById('min').textContent = minStr;
+            document.getElementById('sec').textContent = secStr;
+            document.getElementById('count').textContent = countStr;
+        }
+    </script>
+</body>
+
+</html>
